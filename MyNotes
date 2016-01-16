@@ -1,1 +1,11 @@
+N- Table 1-4 Symbol Commands
+( )       Runs the enclosed command in a sub-shell
+  As an example :
+  $ pwd 
+  $ /home/user1
+  $ ( cd Documents ; pwd )
+  $ /home/user1/Documents
+  $ pwd
+  $ /home/user1
+
 
