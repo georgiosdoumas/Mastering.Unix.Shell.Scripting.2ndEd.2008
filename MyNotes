@@ -15,3 +15,22 @@ Command-Line Arguments :
 The correct text should be 
     "The positional parameters, $1, $2, and so on in a function are for the function’s use"
 
+E- Chapter1 , page 16-17
+Listing 1-2 Example of using the shift command
+The script (it is a kind of templeta ,but still it should be clear) as it is written in the book,
+does not provide a mechanism to exit the while-loop. And the point at which the addition happens is 
+not good. Here is how it should be :
+  #!/usr/bin/sh
+  # Mastering Unix Shell scripting 2008, Chapter1 page 16
+  # Listing 1-2 Example of using the shift command
+  TOTAL=0		# Initialize the TOTAL counter to zero
+  # Start a while loop
+  while true
+  do
+  	TOKEN=$1
+  	[ -z $TOKEN ] && break;
+  	TOTAL=`expr $TOTAL + 1`  #or TOTAL=$(($TOTAL + 1))
+  	echo "Argument processed : $TOKEN " #
+  	shift		# Grab the next token, i.e. $2 becomes $1
+  done
+  echo "Total number of tokens processed: $TOTAL"
