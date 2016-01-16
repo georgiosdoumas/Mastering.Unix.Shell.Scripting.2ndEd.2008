@@ -3,4 +3,5 @@ Errata I find and is not listed in the official errata of the book , and various
 Website from Wiley : http://eu.wiley.com/WileyCDA/WileyTitle/productCd-0470183012.html
 
 E-  : means errata
+
 N-  : means note , something that I wanted to have written , like a small example , or a small explanation.
