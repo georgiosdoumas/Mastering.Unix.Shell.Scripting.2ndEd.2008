@@ -1,4 +1,5 @@
-N- Table 1-4 Symbol Commands
+N- Chapter1 , page 15 
+Table 1-4 Symbol Commands
 ( )       Runs the enclosed command in a sub-shell
   As an example :
   $ pwd 
