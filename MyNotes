@@ -17,9 +17,9 @@ The correct text should be
 
 E- Chapter1 , page 16-17
 Listing 1-2 Example of using the shift command
-The script (it is a kind of templeta ,but still it should be clear) as it is written in the book,
-does not provide a mechanism to exit the while-loop. And the point at which the addition happens is 
-not good. Here is how it should be :
+The script (it is a kind of template ,but still it should be clear) as it is written in the book,
+does not provide a mechanism to exit the while-loop. And the point at which the addition +1 happens 
+isnot good. Here is how it should be :
   #!/usr/bin/sh
   # Mastering Unix Shell scripting 2008, Chapter1 page 16
   # Listing 1-2 Example of using the shift command
@@ -28,9 +28,21 @@ not good. Here is how it should be :
   while true
   do
   	TOKEN=$1
-  	[ -z $TOKEN ] && break;
+  	[ -z $TOKEN ] && break;  #if no command line argument was given break out of while-loop
   	TOTAL=`expr $TOTAL + 1`  #or TOTAL=$(($TOTAL + 1))
   	echo "Argument processed : $TOKEN " #
   	shift		# Grab the next token, i.e. $2 becomes $1
   done
   echo "Total number of tokens processed: $TOTAL"
+
+N- Chapter1 Setting traps , page 25
+A full example can be:
+  #!/bin/bash
+  echo "we create a temporary file in /tmp"
+  touch /tmp/trap_file.txt
+  trap 'echo -e "\nPremature termination.Cleaning temp files before exiting.\n"; rm /tmp/temp_file.txt; exit' 1 2 3 15
+  read -p "give some words as input to the file /tmp/trap_file.txt: "
+  echo $REPLY > /tmp/trap_file.txt
+  echo "Here are the contents of the file , before we destroy it:"
+  cat /tmp/trap_file.txt
+  rm /tmp/trap_file.txt
