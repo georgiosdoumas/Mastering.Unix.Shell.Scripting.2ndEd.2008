@@ -61,3 +61,27 @@ This can easily be tested with something that produces both an error message and
 where existing file must exist. This way the contents of ls_results file will have both the error (for nonexistentfile)
 and the normal output (for existingfile).
 
+E- Chapter1 Using getops to parse command-line arguments ,page 34 
+Here is a more complete example with corrections
+  #!/bin/bash
+  SECS=0		# Initialize all to zero
+  MINUTES=0
+  HOURS=0 
+  TOTAL_SECONDS=0  #This is missing from the book, but it is crusial for the final calculation
+  PROCESS=	# Initialize to null , empty string
+  usage () { 
+  	echo "$(basename $0) -s S -m M -h H ";echo "Where S is integer number for seconds,M for minutes,H for hours";
+  }   #The book does not provide some implementation of the function usage
+  while getopts :s:m:h:d:p: TIMEOPT 2>/dev/null
+  do
+  	case $TIMEOPT in
+		  s) SECS=$OPTARG ;;
+		  m) (( MINUTES = $OPTARG * 60 )) ;;
+		  h) (( HOURS = $OPTARG * 3600 ))	;;
+		  d) (( DAYS = $OPTARG * 86400 )) ;;
+		  p) PROCESS=$OPTARG ;;
+		  \?) usage ; exit 1 ;;
+	  esac
+  done
+  (( TOTAL_SECONDS = $SECS + $MINUTES + $HOURS + $DAYS )) #Here the book has wrong name SECONDS ,and also forgets the $
+  echo "We will monitor the application $PROCESS for $TOTAL_SECONDS seconds"
