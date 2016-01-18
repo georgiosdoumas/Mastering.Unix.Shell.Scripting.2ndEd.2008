@@ -36,7 +36,7 @@ isnot good. Here is how it should be :
   echo "Total number of tokens processed: $TOTAL"
 
 N- Chapter1 Setting traps , page 25
-A full example can be:
+One full example can be:
   #!/bin/bash
   echo "we create a temporary file in /tmp"
   touch /tmp/trap_file.txt
@@ -46,3 +46,18 @@ A full example can be:
   echo "Here are the contents of the file , before we destroy it:"
   cat /tmp/trap_file.txt
   rm /tmp/trap_file.txt
+
+E- Chapter1 Output Control , page 32 Silent running
+The book has an example of :
+  /PATH/script_name 2>&1 > /dev/null
+to redirect the error stream file descriptor 2 at the same stream as the stdout file descriptor 1
+and then supposedly both of them will be redirected in the /dev/null , so no output to clutter the console.
+But at least in bash , the correct is:
+  /PATH/script_name  1> /dev/null 2>&1
+so first the redirection of fd 1 must go to /dev/null (or any other file, to really check it)
+and then the fd 2 follows where ever &1 is redirected.  
+This can easily be tested with something that produces both an error message and a normal output message.
+   ls nonexistentfile existingfile 1> ls_results 2>&1
+where existing file must exist. This way the contents of ls_results file will have both the error (for nonexistentfile)
+and the normal output (for existingfile).
+
