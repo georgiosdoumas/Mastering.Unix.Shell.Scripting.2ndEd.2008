@@ -59,7 +59,7 @@ and then the fd 2 follows where ever &1 is redirected.
 This can easily be tested with something that produces both an error message and a normal output message.
    ls nonexistentfile existingfile 1> ls_results 2>&1
 where existing file must exist. This way the contents of ls_results file will have both the error (for nonexistentfile)
-and the normal output (for existingfile).
+and the normal output (for existingfile). I tested it for both bash and ksh.
 
 E- Chapter1 Using getops to parse command-line arguments ,page 34 
 Here is a more complete example with corrections
