@@ -93,7 +93,7 @@ The book has several mistakes. Here is a working example,with more comments
 function trap_exit
 {
   BREAK_OUT='Y'		# Tell the co-process to break out of the loop
-  echo "User must have typed something like Ctrl+C. I have to inform the co-process"
+  echo "I must have trapped a SIG. I have to inform the co-process"
   print -p $BREAK_OUT	# Use "print -p" to talk to the co-process
 }
 function proc_watch 	# This function is started as a co-process!!!
@@ -110,7 +110,7 @@ function proc_watch 	# This function is started as a co-process!!!
 }
 ##### Start of Main ########
 echo "Starting main with PID of $$ "    #-- Simple debugging message --
-trap 'trap_exit; exit 2' 1 2 3 15	### Set a Trap ,in case user types Ctr+C or ...###
+trap 'trap_exit; exit 2' 1 2 3 15	### Set a Trap ,in case user types Ctr+C or main sents SIG:HUP,INT,QUIT,TERM###
 TOTAL_SECONDS=10
 BREAK_OUT='N'
 proc_watch |& 	# Start proc_watch as a co-process!!
