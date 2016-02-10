@@ -67,7 +67,7 @@ Here is a more complete example with corrections
   SECS=0		# Initialize all to zero
   MINUTES=0
   HOURS=0 
-  TOTAL_SECONDS=0  #This is missing from the book, but it is crusial for the final calculation
+  TOTAL_SECONDS=0  #This is missing from the book, but it is crucial for the final calculation
   PROCESS=	# Initialize to null , empty string
   usage () { 
   	echo "$(basename $0) -s S -m M -h H ";echo "Where S is integer number for seconds,M for minutes,H for hours";
