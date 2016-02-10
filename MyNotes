@@ -90,7 +90,6 @@ Here is a more complete example with corrections
 Ε- Chapter1 Making a Co-Process with Background Function ,page 35
 The book has several mistakes. Here is a working example,with more comments
 #!/usr/bin/ksh
-FILEOUT="coprocess_listing1_6"
 function trap_exit
 {
   BREAK_OUT='Y'		# Tell the co-process to break out of the loop
