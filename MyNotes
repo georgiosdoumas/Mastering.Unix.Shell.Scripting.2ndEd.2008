@@ -127,3 +127,10 @@ print -p $BREAK_OUT	# Use "print -p" to communicate with the co-process variable
 echo "Going to kill the co-process $PW_PID "
 kill $PW_PID		# Kill the background co-process,so that it will not stay orphan
 exit 0
+###### The book is also wrong when it says :
+ Try setting up the scenario described previously with a background function that
+ has an infinite loop. Then press the Ctrl+C key sequence to kill the main script, and
+ do a ps -ef | more . You will see that the background loop is still executing! Get the
+ PID, and do a kill -9 on that PID to kill it.
+As anyone can test using my above script, when he let the 10secs pass normaly , the value of $? is 0 
+but when he types Ctrl+C , the value of $? is 2 , from the exit command inside the trap line of main.
