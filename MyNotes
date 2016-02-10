@@ -85,3 +85,46 @@ Here is a more complete example with corrections
   done
   (( TOTAL_SECONDS = $SECS + $MINUTES + $HOURS + $DAYS )) #Here the book has wrong name SECONDS ,and also forgets the $
   echo "We will monitor the application $PROCESS for $TOTAL_SECONDS seconds"
+
+
+Ε- Chapter1 Making a Co-Process with Background Function ,page 35
+The book has several mistakes. Here is a working example,with more comments
+#!/usr/bin/ksh
+FILEOUT="coprocess_listing1_6"
+function trap_exit
+{
+  BREAK_OUT='Y'		# Tell the co-process to break out of the loop
+  echo "User must have typed something like Ctrl+C. I have to inform the co-process"
+  print -p $BREAK_OUT	# Use "print -p" to talk to the co-process
+}
+function proc_watch 	# This function is started as a co-process!!!
+{
+  while :	# Loop forever
+  do
+	echo "We started the co-process function $0 " 1>&2 ##--Do not know how to get PID of proc_watch in here!
+	read BREAK_OUT # Do NOT need a "-p" to read!  , also the book has it wrong as: read $BREAK_OUT
+	echo -e "we received $BREAK_OUT ,lets check if it is Y\n" 1>&2
+	if [[ $BREAK_OUT = 'Y' ]];then
+	  return 0
+	fi
+  done
+}
+##### Start of Main ########
+echo "Starting main with PID of $$ "    #-- Simple debugging message --
+trap 'trap_exit; exit 2' 1 2 3 15	### Set a Trap ,in case user types Ctr+C or ...###
+TOTAL_SECONDS=10
+BREAK_OUT='N'
+proc_watch |& 	# Start proc_watch as a co-process!!
+PW_PID=$! 	#-- Process ID of the last background job ProcWatch ,the book has it wrong as PW_PID=$1
+echo " The background co-process has PID = $PW_PID "  #-- Simple debugging message --
+until (( TOTAL_SECONDS == 0 ))
+do
+  (( TOTAL_SECONDS = $TOTAL_SECONDS - 1 )) #--Here the book has again a mistake forgetting the $
+  echo " $TOTAL_SECONDS  [press Ctrl+C to stop co-process earlier]"
+  sleep 1
+done
+BREAK_OUT='Y'
+print -p $BREAK_OUT	# Use "print -p" to communicate with the co-process variable,for korn shell
+echo "Going to kill the co-process $PW_PID "
+kill $PW_PID		# Kill the background co-process,so that it will not stay orphan
+exit 0
