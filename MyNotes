@@ -62,30 +62,7 @@ where existing file must exist. This way the contents of ls_results file will ha
 and the normal output (for existingfile). I tested it for both bash and ksh.
 
 E- Chapter1 Using getops to parse command-line arguments ,page 34 
-Here is a more complete example with corrections
-  #!/bin/bash
-  SECS=0		# Initialize all to zero
-  MINUTES=0
-  HOURS=0 
-  TOTAL_SECONDS=0  #This is missing from the book, but it is crucial for the final calculation
-  PROCESS=	# Initialize to null , empty string
-  usage () { 
-  	echo "$(basename $0) -s S -m M -h H ";echo "Where S is integer number for seconds,M for minutes,H for hours";
-  }   #The book does not provide some implementation of the function usage
-  while getopts :s:m:h:d:p: TIMEOPT 2>/dev/null
-  do
-  	case $TIMEOPT in
-		  s) SECS=$OPTARG ;;
-		  m) (( MINUTES = $OPTARG * 60 )) ;;
-		  h) (( HOURS = $OPTARG * 3600 ))	;;
-		  d) (( DAYS = $OPTARG * 86400 )) ;;
-		  p) PROCESS=$OPTARG ;;
-		  \?) usage ; exit 1 ;;
-	  esac
-  done
-  (( TOTAL_SECONDS = $SECS + $MINUTES + $HOURS + $DAYS )) #Here the book has wrong name SECONDS ,and also forgets the $
-  echo "We will monitor the application $PROCESS for $TOTAL_SECONDS seconds"
-
+see folder chapter01 for a full corrected example
 
 Ε- Chapter1 Making a Co-Process with Background Function ,page 35
 The book has several mistakes. Here is a working example,with more comments
