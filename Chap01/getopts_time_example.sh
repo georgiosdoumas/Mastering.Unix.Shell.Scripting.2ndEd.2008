@@ -4,10 +4,10 @@ SECS=0		# Initialize all to zero
 MINUTES=0
 HOURS=0
 TOTAL_SECONDS=0   ## missing from the book! 
-PROCESS=	# Initialize to null
+PROCESS=	# Initialize to null , which is an empty string
 usage () { 
 	echo "$(basename $0) -s S -m M -h H ";echo "Where S is integer number for seconds,M for minutes,H for hours";
-}
+} #The book does not provide some implementation of the function usage, so here is mine 
 while getopts :s:m:h:d:p: TIMEOPT 2>/dev/null
 do
 	case $TIMEOPT in
